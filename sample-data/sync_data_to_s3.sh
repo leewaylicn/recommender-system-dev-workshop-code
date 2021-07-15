@@ -45,15 +45,19 @@ Yellow_print "REGION: $REGION"
 AWS_ACCOUNT_ID=$($AWS_CMD  sts get-caller-identity  --o text | awk '{print $1}')
 Yellow_print "AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}"
 
+#hard code for webull rec
 BUCKET_BUILD=aws-gcr-rs-sol-${Stage}-${REGION}-${AWS_ACCOUNT_ID}
+#BUCKET_BUILD=webull-sagemaker-post-recommendation
 PREFIX=sample-data-news
 
 echo "BUCKET_BUILD=${BUCKET_BUILD}"
 echo "Create S3 Bucket: ${BUCKET_BUILD} if not exist"
 
 
-$AWS_CMD s3api --region $REGION create-bucket --bucket ${BUCKET_BUILD}  \
---create-bucket-configuration LocationConstraint=$REGION || true
+#us-east-1 region can't use configuration, please refer https://github.com/boto/boto3/issues/125
+#$AWS_CMD s3api --region $REGION create-bucket --bucket ${BUCKET_BUILD}  \
+#--create-bucket-configuration LocationConstraint=$REGION || true
+$AWS_CMD s3api --region $REGION create-bucket --bucket ${BUCKET_BUILD} || true
 
 $AWS_CMD  s3 mb s3://${BUCKET_BUILD}  >/dev/null 2>&1 || true
 
