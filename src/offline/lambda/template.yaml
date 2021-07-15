@@ -31,7 +31,7 @@ Parameters:
 
   S3Prefix:
     Type: String
-    Default: sample-data-news
+    Default: ops-data
 
   StepFunName:
     Description: Step Func Name
