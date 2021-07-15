@@ -31,9 +31,7 @@ AWS_REGION=$REGION
 AWS_ACCOUNT_ID=$($AWS_CMD sts get-caller-identity --region ${REGION} --query Account --output text)
 echo "AWS_ACCOUNT_ID: ${AWS_ACCOUNT_ID}"
 
-#hard code for webull
-#BUCKET=aws-gcr-rs-sol-${Stage}-${REGION}-${AWS_ACCOUNT_ID}
-BUCKET=webull-sagemaker-post-recommendation
+BUCKET=aws-gcr-rs-sol-${Stage}-${REGION}-${AWS_ACCOUNT_ID}
 S3Prefix=ops-data
 
 PARAMETER_OVERRIDES="Bucket=$BUCKET S3Prefix=$S3Prefix Stage=$Stage"
