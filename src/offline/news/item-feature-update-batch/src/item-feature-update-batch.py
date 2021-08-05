@@ -212,7 +212,7 @@ relations_dbpedia_train[0] = '0'
 
 new_list_kg = []
 
-
+# hrt -> head relation tail
 def analyze_map_hrt(idx, map_dict, raw_content, train_dict):
     # 原始实体从0开始，所以需要归位进行寻找
     idx_test = idx - 1
