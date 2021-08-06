@@ -222,27 +222,31 @@ class Kg:
         upload_entity_name = "dkn_entity_embedding.npy"
         upload_context_name = "dkn_context_embedding.npy"
         upload_relation_name = "dkn_relation_embedding.npy"
-        kg_embedding = np.load(os.path.join(self.train_output_key, generate_entity_name))
-        context_embeddings = np.zeros([kg_embedding.shape[0], hidden_dim], dtype="float32")
+        # kg_embedding = np.load(os.path.join(self.train_output_key, generate_entity_name))
+        entity_embeddings = np.zeros([1, hidden_dim], dtype="float32")
+        relation_embeddings = np.zeros([1, hidden_dim], dtype="float32")
+        np.save(os.path.join(self.train_output_key, generate_entity_name), entity_embeddings)
+        np.save(os.path.join(self.train_output_key, generate_relation_name), relation_embeddings)
+        context_embeddings = np.zeros([1, hidden_dim], dtype="float32")
         entity2neighbor_map = dict()
-        with open(os.path.join(self.kg_folder ,self.kg_dbpedia_train_key)) as f: # 修改‘kg/kg_dbpedia.txt’文件路径
-            for line in f:
-                line = line.strip().split("\t")
-                head, _, tail = line
-                head = self.idx_to_entity[int(head)] # 修改kg.idx_to_entity
-                tail = self.idx_to_entity[int(tail)]
-                if head in entity2neighbor_map:
-                    entity2neighbor_map[head].append(tail)
-                else:
-                    entity2neighbor_map[head] = [tail]
-                if tail in entity2neighbor_map:
-                    entity2neighbor_map[tail].append(head)
-                else:
-                    entity2neighbor_map[tail] = [head]
-        for entity, index in self.entity_to_idx.items(): # 修改kg.entity_to_idx
-            if entity in entity2neighbor_map:
-                context_full_entities = [self.entity_to_idx[row] for row in entity2neighbor_map[entity]]
-                context_embeddings[index] = np.average(kg_embedding[context_full_entities], axis=0)
+        # with open(os.path.join(self.kg_folder ,self.kg_dbpedia_train_key)) as f: # 修改‘kg/kg_dbpedia.txt’文件路径
+        #     for line in f:
+        #         line = line.strip().split("\t")
+        #         head, _, tail = line
+        #         head = self.idx_to_entity[int(head)] # 修改kg.idx_to_entity
+        #         tail = self.idx_to_entity[int(tail)]
+        #         if head in entity2neighbor_map:
+        #             entity2neighbor_map[head].append(tail)
+        #         else:
+        #             entity2neighbor_map[head] = [tail]
+        #         if tail in entity2neighbor_map:
+        #             entity2neighbor_map[tail].append(head)
+        #         else:
+        #             entity2neighbor_map[tail] = [head]
+        # for entity, index in self.entity_to_idx.items(): # 修改kg.entity_to_idx
+        #     if entity in entity2neighbor_map:
+        #         context_full_entities = [self.entity_to_idx[row] for row in entity2neighbor_map[entity]]
+        #         context_embeddings[index] = np.average(kg_embedding[context_full_entities], axis=0)
                                
 #         np.save(‘kg_embedding/kg_RotatE_context.npy’, context_embeddings)
         np.save(os.path.join(self.train_output_key, generate_context_name), context_embeddings)
