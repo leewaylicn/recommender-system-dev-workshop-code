@@ -260,3 +260,4 @@ class Kg:
 #             for name in glob.glob(os.path.join(self.train_output_key,'*.npy')):
 #                 print("upload {}".format(name))
 #                 s3client.upload_file(name, self.kg_folder, os.path.join(self.train_output_key,name.split('/')[-1]))
+
