@@ -308,6 +308,8 @@ for user_k, result_v in recall_batch_result.items():
     data_input_pddf_dict['news_id'].append(str(list(result_v.keys())))
 data_input_pddf = pd.DataFrame.from_dict(data_input_pddf_dict)
 
+print(data_input_pddf_dict)
+logging.info('generating ranking result')
 data_input_pddf['rank_score'] = data_input_pddf.apply(
     batch_rank.generate_rank_result, axis=1)
 
