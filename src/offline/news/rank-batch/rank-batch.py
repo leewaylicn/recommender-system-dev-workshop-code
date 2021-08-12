@@ -21,8 +21,8 @@ from tensorflow.contrib import predictor
 # pandarallel.initialize(progress_bar=True)
 # bucket = os.environ.get("BUCKET_NAME", " ")
 # raw_data_folder = os.environ.get("RAW_DATA", " ")
-# logger = logging.getLogger()
-# logger.setLevel(logging.INFO)
+logger = logging.getLogger()
+logger.setLevel(logging.INFO)
 # tqdm_notebook().pandas()
 
 ########################################
