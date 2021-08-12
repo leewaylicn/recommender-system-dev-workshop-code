@@ -4,6 +4,7 @@ env:
   variables:
     APP_NAME: "news-rank-batch"
     DIR_NAME: "news/rank-batch"
+    AWS_DEFAULT_REGION: "us-east-1"
   secrets-manager:
     GITHUB_USER: gcr-rs-dev-workshop-github:githubUser
     ACCESS_TOKEN: gcr-rs-dev-workshop-github:accessToken
