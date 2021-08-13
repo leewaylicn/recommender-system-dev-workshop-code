@@ -126,9 +126,10 @@ with SparkSession.builder.appName("Spark App - action preprocessing").getOrCreat
         df_user_id = df_user.selectExpr("split(value, '_!_') as row").where(
             size(col("row")) > 4).selectExpr("row[0] as user_id")
 
-        df_action_output = df_action_input.join(df_item_id, ['item_id']).join(df_user_id, ['user_id'])
-        action_count = df_action_output.count()
-        print("action_count: {}".format(action_count))
+        # df_action_output = df_action_input.join(df_item_id, ['item_id']).join(df_user_id, ['user_id'])
+        # action_count = df_action_output.count()
+        # print("action_count: {}".format(action_count))
+        df_action_output = df_action_input
         df_action_output \
             .select("user_id", "item_id", "timestamp", "action_type", "action_value") \
             .coalesce(1).write.mode("overwrite") \
