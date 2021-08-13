@@ -187,6 +187,7 @@ class Rank():
         for i in range(8):
             temp_user_clicks_set.append('6552147830184608263')
 
+        print('news_id', recall_result_pddf['news_id'])
         recall_result = recall_result_pddf['news_id'].split('[')[1].split(']')[
             0].split(',')
         user_id = recall_result_pddf['user_id']
@@ -195,6 +196,7 @@ class Rank():
         if str(user_id) in self.user_portrait:
             user_clicks_set = self.user_portrait[str(user_id)]['click_sets']
 
+        print('recall_result', recall_result)
         filter_recall_result = []
         for recall_item_raw in recall_result:
             recall_item = recall_item_raw.split("'")[1]
@@ -260,6 +262,7 @@ class Rank():
             logging.info(
                 "click word len {} with array {}".format(len(idx), idx))
 
+        print('arrays', news_words_index, news_entity_index, click_words_index, click_entity_index)
         news_words_index_np = np.array(news_words_index)
         news_entity_index_np = np.array(news_entity_index)
         click_words_index_np = np.array(click_words_index)
@@ -281,6 +284,7 @@ class Rank():
         logging.info("input news words shape {}".format(
             input_dict['news_words'].shape))
 
+        print('model input dict', input_dict)
         output = self.model(input_dict)
 
         logging.info('output {} from model'.format(output))
