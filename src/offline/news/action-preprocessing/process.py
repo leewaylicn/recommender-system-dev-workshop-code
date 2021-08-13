@@ -102,6 +102,7 @@ with SparkSession.builder.appName("Spark App - action preprocessing").getOrCreat
     print("start processing action file: {}".format(input_action_file))
     # 52a23654-9dc3-11eb-a364-acde48001122_!_6552302645908865543_!_1618455260_!_1_!_0
     df_action_input = spark.read.text(input_action_file)
+    print('df_action_input', input_action_file, df_action_input)
     df_action_input = df_action_input.selectExpr("split(value, '_!_') as row").where(
         size(col("row")) > 4).selectExpr("row[0] as user_id",
                                          "row[1] as item_id",
