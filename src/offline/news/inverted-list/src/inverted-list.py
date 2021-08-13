@@ -321,11 +321,11 @@ def gen_pickle_files(df, action_df):
         program_id = str(item_row['news_id'])
         # current_entities = get_entities(item_row['title'])[1]
         # current_words = get_entities(item_row['title'])[0]
-        model_results = get_entities(item_row['title'])
-        current_entities = model_results[1]
-        current_words = model_results[0]
-        # current_entities = [1] * 16
-        # current_words = [1] * 16
+        # model_results = get_entities(item_row['title'])
+        # current_entities = model_results[1]
+        # current_words = model_results[0]
+        current_entities = [0] * 16
+        current_words = [0] * 16
         # if program_id == '6552382602181870087':
         #     model_results = get_entities(item_row['title'])
         #     current_entities = model_results[1]
