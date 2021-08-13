@@ -313,6 +313,32 @@ for user_k, result_v in recall_batch_result.items():
 data_input_pddf = pd.DataFrame.from_dict(data_input_pddf_dict)
 
 print(data_input_pddf_dict)
+print(data_input_pddf)
+# for debugging
+try:
+    data_input_pddf.apply(
+        batch_rank.generate_rank_result, axis=1)
+except:
+    obj = {"100190235": {
+        "6424733176484069634": [
+            "6424733176484069634",
+            "entities",
+            0,
+            15.7
+        ],
+        "6479397812118225165": [
+            "6479397812118225165",
+            "entities",
+            6,
+            11.7
+        ],
+        "6552330268189917703": [
+            "6552330268189917703",
+            "entities",
+            1,
+            11.2
+        ]}}
+    data_input_pddf = pd.DataFrame.from_dict(obj)
 logging.info('generating ranking result')
 data_input_pddf['rank_score'] = data_input_pddf.apply(
     batch_rank.generate_rank_result, axis=1)
