@@ -308,7 +308,9 @@ batch_rank = Rank(user_portrait, dict_id_property_pddf)
 data_input_pddf_dict = {}
 data_input_pddf_dict['user_id'] = []
 data_input_pddf_dict['news_id'] = []
+print('recall batch result', recall_batch_result)
 for user_k, result_v in recall_batch_result.items():
+    print('user_k, result_v', user_k, result_v)
     data_input_pddf_dict['user_id'].append(str(user_k))
     data_input_pddf_dict['news_id'].append(str(list(result_v.keys())))
 data_input_pddf = pd.DataFrame.from_dict(data_input_pddf_dict)
