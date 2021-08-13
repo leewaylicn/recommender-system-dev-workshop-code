@@ -319,6 +319,7 @@ try:
     data_input_pddf['rank_score'] = data_input_pddf.apply(
         batch_rank.generate_rank_result, axis=1)
 except:
+    logging.info('debugging using sampled data')
     obj = {"100190235": {
         "6424733176484069634": [
             "6424733176484069634",
@@ -339,6 +340,7 @@ except:
             11.2
         ]}}
     data_input_pddf = pd.DataFrame.from_dict(obj)
+    print('data_frame again', data_input_pddf)
 logging.info('generating ranking result')
 data_input_pddf['rank_score'] = data_input_pddf.apply(
     batch_rank.generate_rank_result, axis=1)
