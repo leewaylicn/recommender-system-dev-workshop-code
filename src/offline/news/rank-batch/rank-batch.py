@@ -316,7 +316,7 @@ print(data_input_pddf_dict)
 print(data_input_pddf)
 # for debugging
 try:
-    data_input_pddf.apply(
+    data_input_pddf['rank_score'] = data_input_pddf.apply(
         batch_rank.generate_rank_result, axis=1)
 except:
     obj = {"100190235": {
