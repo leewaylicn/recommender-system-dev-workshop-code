@@ -155,12 +155,12 @@ class Rank():
         logging.info('recall_result -> {}'.format(recall_result))
 
         # TODO need to call customer service to get real data
-        user_clicks_set = ['6553003847780925965',
-                           '6553082318746026500', '6522187689410691591']
-        # user_clicks_set_redis = rCache.get_data_from_hash(user_id_click_dict, user_id)
-        # if bool(user_clicks_set_redis):
-        #     logging.info('user_clicks_set_redis {}'.format(user_clicks_set_redis))
-        #     user_clicks_set = json.loads(user_clicks_set_redis, encoding='utf-8')
+        # user_clicks_set = ['6553003847780925965',
+        #                    '6553082318746026500', '6522187689410691591']
+        user_clicks_set_redis = rCache.get_data_from_hash(user_id_click_dict, user_id)
+        if bool(user_clicks_set_redis):
+            logging.info('user_clicks_set_redis {}'.format(user_clicks_set_redis))
+            user_clicks_set = json.loads(user_clicks_set_redis, encoding='utf-8')
 
         rank_result = self.generate_rank_result(
             recall_result, self.news_id_entity_ids_dict, self.news_id_word_ids_dict, user_clicks_set)
