@@ -157,6 +157,7 @@ class Rank():
         # TODO need to call customer service to get real data
         # user_clicks_set = ['6553003847780925965',
         #                    '6553082318746026500', '6522187689410691591']
+        logging.info('reading from cache')
         user_clicks_set_redis = rCache.get_data_from_hash(user_id_click_dict, user_id)
         if bool(user_clicks_set_redis):
             logging.info('user_clicks_set_redis {}'.format(user_clicks_set_redis))
@@ -320,7 +321,7 @@ try:
         batch_rank.generate_rank_result, axis=1)
 except:
     logging.info('debugging using sampled data')
-    obj = {"100190235": {
+    recall_batch_result = {"100190235": {
         "6424733176484069634": [
             "6424733176484069634",
             "entities",
@@ -339,7 +340,13 @@ except:
             1,
             11.2
         ]}}
-    data_input_pddf = pd.DataFrame.from_dict(obj)
+    data_input_pddf_dict = {}
+    data_input_pddf_dict['user_id'] = []
+    data_input_pddf_dict['news_id'] = []
+    for user_k, result_v in recall_batch_result.items():
+        data_input_pddf_dict['user_id'].append(str(user_k))
+        data_input_pddf_dict['news_id'].append(str(list(result_v.keys())))
+    data_input_pddf = pd.DataFrame.from_dict(data_input_pddf_dict)
     print('data_frame again', data_input_pddf)
 logging.info('generating ranking result')
 data_input_pddf['rank_score'] = data_input_pddf.apply(
