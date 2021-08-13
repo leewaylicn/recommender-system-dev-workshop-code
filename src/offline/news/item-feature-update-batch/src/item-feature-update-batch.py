@@ -164,21 +164,21 @@ def analyze_map(raw_idx, map_dict, filter_idx):
                 map_dict[idx] = len(map_dict) + 1
             filter_idx.append(map_dict[idx])
 
-
+# program_id <-> content id
 for row in df_filter_item.iterrows():
     item_row = row[1]
     program_id = str(item_row['news_id'])
-    title_result = model[item_row['title']]
-    current_words = title_result[0]
-    current_entities = title_result[1]
+    # title_result = model[item_row['title']]
+    # current_words = title_result[0]
+    # current_entities = title_result[1]
     filter_words = []
     filter_entities = []
-    analyze_map(current_words, map_words, filter_words)
-    analyze_map(current_entities, map_entities, filter_entities)
+    # analyze_map(current_words, map_words, filter_words)
+    # analyze_map(current_entities, map_entities, filter_entities)
     # filter entities & filter words
     program_dict = {
-        'entities': filter_entities,
-        'words': filter_words
+        'entities': [0]*16,
+        'words': [0]*16
     }
     news_id_news_feature_dict[program_id] = program_dict
 
