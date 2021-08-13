@@ -132,10 +132,10 @@ with SparkSession.builder.appName("Spark App - action preprocessing").getOrCreat
         print('++++++df_item cont', item_file, df_item_id.count())
         print('++++++df_user', user_file, df_user_id.count())
 
-        # df_action_output = df_action_input.join(df_item_id, ['item_id']).join(df_user_id, ['user_id'])
-        # action_count = df_action_output.count()
-        # print("action_count: {}".format(action_count))
-        df_action_output = df_action_input
+        df_action_output = df_action_input.join(df_item_id, ['item_id']).join(df_user_id, ['user_id'])
+        action_count = df_action_output.count()
+        print("action_count: {}".format(action_count))
+        # df_action_output = df_action_input
         df_action_output \
             .select("user_id", "item_id", "timestamp", "action_type", "action_value") \
             .coalesce(1).write.mode("overwrite") \
