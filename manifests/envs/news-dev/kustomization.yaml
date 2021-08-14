@@ -59,7 +59,7 @@ images:
   newTag: latest
 - name: rs/ui
   newName: 109490051519.dkr.ecr.ap-northeast-1.amazonaws.com/rs/ui
-  newTag: 9ee5cf37ce853f287023ee46e1d5d5d507486f4b
+  newTag: 00da266b8681339a9f74dd3147fe76c8772c5f23
 
 
 
