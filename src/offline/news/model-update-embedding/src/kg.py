@@ -178,24 +178,24 @@ class Kg:
 #     def train(self, output_dir = 'kg_embedding', hidden_dim=128, max_step=320000):
     def train(self, output_dir = '/opt/ml/model', hidden_dim=128, max_step=200, method='RotatE', upload_context=True):
         self.check_parent_dir('.',self.train_output_key)
-        dglke_train.main(['--dataset',self.kg_folder,
-                  '--model_name', method,
-                  '--gamma','19.9',
-                  '--lr', '0.25',
-                  '--max_step',str(max_step),
-                  '--log_interval',str(max_step//100),
-                  '--batch_size_eval','1000',
-                  '--hidden_dim', str(hidden_dim//2), # RotatE模型传入的是1/2 hidden_dim的
-                  '-adv',
-                  '--regularization_coef','1.00E-09',
-                 '--gpu','0',
-                  '--double_ent',
-                  '--mix_cpu_gpu',
-                  '--save_path',self.train_output_key,
-                  '--data_path',self.kg_folder,
-                  '--format','udd_hrt',
-                  '--data_files',self.kg_entity_train_key,self.kg_relation_train_key,self.kg_dbpedia_train_key,
-                  '--neg_sample_size_eval','10000'])
+        # dglke_train.main(['--dataset',self.kg_folder,
+        #           '--model_name', method,
+        #           '--gamma','19.9',
+        #           '--lr', '0.25',
+        #           '--max_step',str(max_step),
+        #           '--log_interval',str(max_step//100),
+        #           '--batch_size_eval','1000',
+        #           '--hidden_dim', str(hidden_dim//2), # RotatE模型传入的是1/2 hidden_dim的
+        #           '-adv',
+        #           '--regularization_coef','1.00E-09',
+        #          '--gpu','0',
+        #           '--double_ent',
+        #           '--mix_cpu_gpu',
+        #           '--save_path',self.train_output_key,
+        #           '--data_path',self.kg_folder,
+        #           '--format','udd_hrt',
+        #           '--data_files',self.kg_entity_train_key,self.kg_relation_train_key,self.kg_dbpedia_train_key,
+        #           '--neg_sample_size_eval','10000'])
         # dglke_train.main(['--dataset','kg',
         #           #'--model_name','RotatE'
         #           '--gamma','19.9',
