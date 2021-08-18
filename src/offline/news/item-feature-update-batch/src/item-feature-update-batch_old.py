@@ -257,11 +257,10 @@ with open(relations_dbpedia_train_path, 'w') as f:
         f.write("%s,%s\n" % (key, relations_dbpedia_train[key]))
 
 # slim version
-# list_word_embedding = []
-# list_word_embedding.append([0] * 300)
-# for raw_key, map_v in map_words.items():
-#     list_word_embedding.append(complete_dkn_word_embed[raw_key])
-list_word_embedding = complete_dkn_word_embed
+list_word_embedding = []
+list_word_embedding.append([0] * 300)
+for raw_key, map_v in map_words.items():
+    list_word_embedding.append(complete_dkn_word_embed[raw_key])
 
 file_name = 'info/dkn_word_embedding.npy'
 with open(file_name, "wb") as f:
