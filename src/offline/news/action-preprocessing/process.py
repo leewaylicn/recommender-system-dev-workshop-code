@@ -102,7 +102,7 @@ with SparkSession.builder.appName("Spark App - action preprocessing").getOrCreat
     print("start processing action file: {}".format(input_action_file))
     # 52a23654-9dc3-11eb-a364-acde48001122_!_6552302645908865543_!_1618455260_!_1_!_0
     df_action_input = spark.read.text(input_action_file)
-    print('++++++df_action_input count', input_action_file, df_action_input.count())
+
     df_action_input = df_action_input.selectExpr("split(value, '_!_') as row").where(
         size(col("row")) > 4).selectExpr("row[0] as user_id",
                                          "row[1] as item_id",
@@ -111,16 +111,13 @@ with SparkSession.builder.appName("Spark App - action preprocessing").getOrCreat
                                          "cast(row[4] as string) as action_value",
                                          )
     df_action_input.cache()
-    print('++++++action input value', df_action_input.count())
 
     if only4popularity:
-        print('execute only4popularity')
         df_action_input \
             .select("user_id", "item_id", "timestamp", "action_type", "action_value") \
             .coalesce(1).write.mode("overwrite") \
             .option("header", "false").option("sep", "_!_").csv(emr_action_popularity_output_bucket_key_prefix)
     else:
-        print('[[[]]]not executing')
         df_item = spark.read.text(item_file)
         df_item_id = df_item.selectExpr("split(value, '_!_') as row").where(
             size(col("row")) > 6).selectExpr("row[0] as item_id")
@@ -129,13 +126,10 @@ with SparkSession.builder.appName("Spark App - action preprocessing").getOrCreat
         df_user_id = df_user.selectExpr("split(value, '_!_') as row").where(
             size(col("row")) > 4).selectExpr("row[0] as user_id")
 
-        print('++++++df_item cont', item_file, df_item_id.count())
-        print('++++++df_user', user_file, df_user_id.count())
-
         df_action_output = df_action_input.join(df_item_id, ['item_id']).join(df_user_id, ['user_id'])
         action_count = df_action_output.count()
         print("action_count: {}".format(action_count))
-        # df_action_output = df_action_input
+
         df_action_output \
             .select("user_id", "item_id", "timestamp", "action_type", "action_value") \
             .coalesce(1).write.mode("overwrite") \

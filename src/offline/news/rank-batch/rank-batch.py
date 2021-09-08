@@ -21,8 +21,8 @@ from tensorflow.contrib import predictor
 # pandarallel.initialize(progress_bar=True)
 # bucket = os.environ.get("BUCKET_NAME", " ")
 # raw_data_folder = os.environ.get("RAW_DATA", " ")
-logger = logging.getLogger()
-logger.setLevel(logging.INFO)
+# logger = logging.getLogger()
+# logger.setLevel(logging.INFO)
 # tqdm_notebook().pandas()
 
 ########################################
@@ -184,11 +184,11 @@ class Rank():
         click_words_index = []
         click_entity_index = []
         # debug for mingtong
-        temp_user_clicks_set = []
-        for i in range(8):
-            temp_user_clicks_set.append('6552147830184608263')
+        # temp_user_clicks_set = []
+        # for i in range(8):
+        #     temp_user_clicks_set.append('6552147830184608263')
 
-        print('news_id', recall_result_pddf['news_id'])
+        # print('news_id', recall_result_pddf['news_id'])
         recall_result = recall_result_pddf['news_id'].split('[')[1].split(']')[
             0].split(',')
         user_id = recall_result_pddf['user_id']
@@ -197,7 +197,7 @@ class Rank():
         if str(user_id) in self.user_portrait:
             user_clicks_set = self.user_portrait[str(user_id)]['click_sets']
 
-        print('recall_result', recall_result)
+        # print('recall_result', recall_result)
         filter_recall_result = []
         for recall_item_raw in recall_result:
             recall_item = recall_item_raw.split("'")[1]
@@ -263,7 +263,7 @@ class Rank():
             logging.info(
                 "click word len {} with array {}".format(len(idx), idx))
 
-        print('arrays', news_words_index, news_entity_index, click_words_index, click_entity_index)
+        # print('arrays', news_words_index, news_entity_index, click_words_index, click_entity_index)
         news_words_index_np = np.array(news_words_index)
         news_entity_index_np = np.array(news_entity_index)
         click_words_index_np = np.array(click_words_index)
@@ -285,7 +285,7 @@ class Rank():
         logging.info("input news words shape {}".format(
             input_dict['news_words'].shape))
 
-        print('model input dict', input_dict)
+        # print('model input dict', input_dict)
         output = self.model(input_dict)
 
         logging.info('output {} from model'.format(output))
@@ -308,15 +308,12 @@ batch_rank = Rank(user_portrait, dict_id_property_pddf)
 data_input_pddf_dict = {}
 data_input_pddf_dict['user_id'] = []
 data_input_pddf_dict['news_id'] = []
-print('recall batch result', recall_batch_result)
+# print('recall batch result', recall_batch_result)
 for user_k, result_v in recall_batch_result.items():
-    print('user_k, result_v', user_k, result_v)
+    # print('user_k, result_v', user_k, result_v)
     data_input_pddf_dict['user_id'].append(str(user_k))
     data_input_pddf_dict['news_id'].append(str(list(result_v.keys())))
 data_input_pddf = pd.DataFrame.from_dict(data_input_pddf_dict)
-
-print(data_input_pddf_dict)
-print(data_input_pddf)
 
 logging.info('generating ranking result')
 data_input_pddf['rank_score'] = data_input_pddf.apply(

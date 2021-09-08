@@ -146,6 +146,7 @@ class ServiceImpl:
         method_weights = recall_wrap['config']['mt_weights']
         raw_item_list = {}
 
+        # mt_list -> method list
         for mt_list in recall_items:
             mt = mt_list['method']
             list_result = mt_list['list']
