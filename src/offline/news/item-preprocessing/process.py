@@ -60,7 +60,7 @@ output_file_key = "{}/system/item-data/item.csv".format(prefix)
 
 print("input_file:", input_file)
 print("debug sig")
-filter_chars = r'[&`><=@ω\{\}^#$/\]\[*【】Ⅴ；%+——「」｜…….:。\s？.：·、！《》!,，_~)）（(?“”"\\-]'
+filter_chars = r'[&`><=@ω\{\}^#$/\]\[*【】Ⅴ；%+——「」｜…….:。？.：·、！《》!,，_~)）（(?“”"\\-]'
 
 input_user_file = "s3://{}/{}/system/ingest-data/user/".format(bucket, prefix)
 emr_user_output_key_prefix = "{}/system/emr/action-preprocessing/output/user".format(prefix)
