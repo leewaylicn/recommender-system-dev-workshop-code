@@ -1,9 +1,7 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
-
 # namespace to deploy all resources to
 namespace: rs-news-dev-ns
-
 resources:
 - config.yaml
 - gateway.yaml
@@ -18,7 +16,6 @@ resources:
 - ../../retrieve
 - ../../demo
 - ui
-
 # all with following *kustomization*
 images:
 - name: rs/demo
@@ -50,19 +47,16 @@ images:
   newTag: latest
 - name: rs/recall
   newName: 641306494782.dkr.ecr.us-east-1.amazonaws.com/rs/recall
-  newTag: 245e327d325b220af1c5f850b6db7465d515f354
+  newTag: b9bf308226eabdeb5265441bdc2f47d54b483279
 - name: rs/recall-plugin
   newName: 641306494782.dkr.ecr.us-east-1.amazonaws.com/rs/recall-plugin
-  newTag: news-245e327d325b220af1c5f850b6db7465d515f354
+  newTag: news-b9bf308226eabdeb5265441bdc2f47d54b483279
 - name: rs/retrieve
   newName: public.ecr.aws/t8u1z3c8/rs/retrieve
   newTag: latest
 - name: rs/ui
   newName: public.ecr.aws/t8u1z3c8/rs/ui
   newTag: latest
-
-
-
 vars:
 - fieldref:
     fieldPath: data.redis_host
@@ -141,3 +135,4 @@ vars:
     apiVersion: v1
     kind: ConfigMap
     name: rs-news-dev-config
+    
