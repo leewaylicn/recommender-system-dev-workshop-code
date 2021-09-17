@@ -1,7 +1,9 @@
 apiVersion: kustomize.config.k8s.io/v1beta1
 kind: Kustomization
+
 # namespace to deploy all resources to
 namespace: rs-news-dev-ns
+
 resources:
 - config.yaml
 - gateway.yaml
@@ -16,6 +18,7 @@ resources:
 - ../../retrieve
 - ../../demo
 - ui
+
 # all with following *kustomization*
 images:
 - name: rs/demo
@@ -57,6 +60,9 @@ images:
 - name: rs/ui
   newName: public.ecr.aws/t8u1z3c8/rs/ui
   newTag: latest
+
+
+
 vars:
 - fieldref:
     fieldPath: data.redis_host
@@ -135,4 +141,3 @@ vars:
     apiVersion: v1
     kind: ConfigMap
     name: rs-news-dev-config
-    
