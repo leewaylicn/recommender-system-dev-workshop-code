@@ -26,6 +26,16 @@ import kg
 # 从s3同步数据
 ########################################
 
+configs = {
+    'local_data_dir': '/tmp/rs-data/',
+    'saved_model_dir': '/opt/ml/model/',
+    'base_model_name': 'bert_model',
+    'value_model_name': 'value_model',
+    'forward_weight': 5,
+    'comment_weight': 2,
+    'thumb_weight': 1
+}
+
 
 def sync_s3(file_name_list, s3_folder, local_folder):
     for f in file_name_list:
@@ -284,9 +294,24 @@ write_to_s3(relations_dbpedia_train_path,
             '{}/relations_dbpedia_train.dict'.format(meta_file_prefix))
 
 file_name = 'info/news_id_news_feature_dict.pickle'
-out_file = open(file_name, 'wb')
-pickle.dump(news_id_news_feature_dict, out_file)
-out_file.close()
+with open(file_name, 'wb') as out_file:
+    pickle.dump(news_id_news_feature_dict, out_file)
+
 # s3_url = S3Uploader.upload(file_name, out_s3_path)
 s3_url = write_to_s3(file_name, bucket,
                      '{}/feature/content/inverted-list/news_id_news_feature_dict.pickle'.format(prefix))
+
+
+# =========================== item value =================================
+# download s3 model file to local dir
+file_name_list = [f"{configs['base_model_name']}.tar.gz"]
+s3_folder = f'{bucket}/model/recall/item_value/'
+sync_s3(file_name_list, s3_folder, local_folder)
+
+# extract model
+
+
+# get feature
+
+
+# upload feature file to s3
