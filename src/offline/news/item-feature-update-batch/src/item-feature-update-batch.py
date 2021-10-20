@@ -26,10 +26,10 @@ import kg
 # 从s3同步数据
 ########################################
 
-configs = {
+config = {
     'local_data_dir': '/tmp/rs-data/',
     'saved_model_dir': '/opt/ml/model/',
-    'base_model_name': 'bert_model',
+    'base_model_name': 'base_model',
     'value_model_name': 'value_model',
     'forward_weight': 5,
     'comment_weight': 2,
@@ -304,7 +304,7 @@ s3_url = write_to_s3(file_name, bucket,
 
 # =========================== item value =================================
 # download s3 model file to local dir
-file_name_list = [f"{configs['base_model_name']}.tar.gz"]
+file_name_list = [f"{config['base_model_name']}.tar.gz"]
 s3_folder = f'{bucket}/model/recall/item_value/'
 sync_s3(file_name_list, s3_folder, local_folder)
 

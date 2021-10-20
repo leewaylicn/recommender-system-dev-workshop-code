@@ -4,7 +4,6 @@
 import redis
 import logging
 
-
 class RedisCache:
 
     def __init__(self, host='localhost', port=6379, db=0):
